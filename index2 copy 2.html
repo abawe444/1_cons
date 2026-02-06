@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مذكرة استراتيجية - حوكمة الأنظمة وضبط الجودة | مجموعة صرح الإتقان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #e67e22;
+            --orange-dark: #c0392b;
+            --orange-light: #f39c12;
+            --red: #c0392b;
+            --charcoal: #2d3748;
+            --slate: #4a5568;
+            --paper-bg: #f5f5f0;
+            --cream: #fafaf8;
+            --text-dark: #1a202c;
+            --frame-margin: 12mm;
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, #e8e8e4 0%, #d8d8d4 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            margin: 0;
+            padding: 0;
+            font-size: 1.1rem;
+        }
+
+        @page { size: A4; margin: 0; }
+
+        .page-container {
+            background: linear-gradient(180deg, 
+                rgba(250,250,248,0.98) 0%, 
+                rgba(245,245,240,0.95) 50%,
+                rgba(250,250,248,0.98) 100%);
+            width: 210mm;
+            height: 297mm;
+            min-height: 297mm;
+            max-width: 100%;
+            margin: 24px auto;
+            padding: 0;
+            box-sizing: border-box;
+            box-shadow: 
+                0 8px 32px rgba(192, 57, 43, 0.12),
+                0 2px 8px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-content {
+            position: absolute;
+            top: var(--frame-margin);
+            right: var(--frame-margin);
+            bottom: var(--frame-margin);
+            left: var(--frame-margin);
+            padding: 16mm 16mm 22mm 16mm;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 3;
+            background: rgba(250,250,248,0.5);
+        }
+
+        .page-frame {
+            position: absolute;
+            top: var(--frame-margin);
+            right: var(--frame-margin);
+            bottom: var(--frame-margin);
+            left: var(--frame-margin);
+            border: 1px solid var(--red);
+            box-shadow: inset 0 0 20px rgba(192, 57, 43, 0.03);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .frame-corner {
+            position: absolute;
+            width: var(--frame-margin);
+            height: var(--frame-margin);
+            z-index: 2;
+            pointer-events: none;
+            border-color: var(--red);
+            border-style: solid;
+            border-width: 0;
+        }
+        .frame-corner.tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+        .frame-corner.tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+        .frame-corner.br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+        .frame-corner.bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+
+        .print-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--red);
+            padding: 12px 0 16px 0;
+            margin-bottom: 16px;
+            font-size: 11px;
+            color: var(--orange-dark);
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+            background: linear-gradient(180deg, rgba(243,156,18,0.08) 0%, rgba(250,250,248,0.95) 100%);
+            line-height: 1.5;
+        }
+
+        .header-right { text-align: right; justify-self: end; }
+        .header-center { text-align: center; justify-self: center; }
+        .header-left { text-align: left; justify-self: start; }
+
+        .print-header .logo-img {
+            height: 72px;
+            width: auto;
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 2px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .print-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 18mm;
+            border-top: 1px solid var(--red);
+            padding: 4px 0 0 0;
+            text-align: center;
+            font-size: 11px;
+            color: var(--orange-dark);
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            flex: 1;
+            min-height: 0;
+            padding-bottom: 8mm;
+            overflow-y: auto;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--orange-dark);
+            margin-bottom: 1rem;
+        }
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.85rem; }
+        h3 { font-size: 1.5rem; }
+
+        .section-title {
+            display: inline-block;
+            border-bottom: 1px solid var(--orange);
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--orange-dark);
+        }
+
+        p { line-height: 1.9; margin-bottom: 1rem; text-align: justify; }
+        ul { margin: 0.5rem 0 1rem 0; padding-right: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        .print-btn {
+            background: linear-gradient(180deg, var(--orange) 0%, var(--orange-dark) 100%);
+            color: white !important;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(230, 126, 34, 0.4);
+            border: 1px solid var(--orange-light);
+        }
+        .print-btn:hover { box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5); }
+
+        @media print {
+            * { box-sizing: border-box; }
+            html, body { 
+                background: white !important; 
+                padding: 0 !important; 
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .page-container { 
+                box-shadow: none !important; 
+                margin: 0 auto !important; 
+                padding: 0 !important;
+                width: 210mm !important; 
+                min-height: 297mm !important; 
+                max-width: 210mm !important;
+                page-break-after: always;
+                overflow: visible !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .page-container:last-child { page-break-after: auto; }
+            .page-content {
+                overflow: visible !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .page-frame, .frame-corner, .print-header, .print-footer, .section {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .header-right, .header-center, .header-left { display: block !important; }
+            .print-header { display: grid !important; grid-template-columns: 1fr auto 1fr !important; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .section { overflow: visible !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print flex justify-center p-6">
+        <button onclick="window.print()" class="print-btn cursor-pointer transition hover:opacity-95">
+            طباعة النموذج / تحويل إلى PDF
+        </button>
+    </div>
+
+    <!-- الصفحة 1 -->
+    <div class="page-container">
+        <div class="page-frame"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-corner bl"></div>
+        <div class="page-content">
+            <div class="print-header">
+                <div class="header-right">مذكرة استراتيجية</div>
+                <div class="header-center">
+                    <img src="logo.png" alt="شعار صرح الإتقان" class="logo-img" onerror="this.style.display='none'">
+                </div>
+                <div class="header-left">شعار</div>
+            </div>
+
+            <div class="section">
+                <p><strong>سعادة الأستاذ/ عبد الحكيم المذهول المحترم</strong><br>رئيس مجلس إدارة مجموعة صرح الإتقان لصيانة السيارات</p>
+                <p><strong>الموضوع:</strong> مذكرة استراتيجية حول "حوكمة الأنظمة وضبط الجودة" وفق مستهدفات رؤية المملكة 2030</p>
+                <p>السلام عليكم ورحمة الله وبركاته،،</p>
+                <p>انطلاقاً من سعي مجموعة صرح الإتقان للريادة في قطاع صيانة السيارات، وبصفتي قريباً ومستشاراً تقنياً مكلفاً بالإشراف على مشروع التحول الرقمي وأتمتة العمليات (نظام SaaS)، أضع بين أيديكم هذا الخطاب الذي يوضح الإطار المهني والقانوني لتواجدي الميداني ونشاطي الإشرافي، بما يتوافق مع الأنظمة المحلية والتوجهات الوطنية:</p>
+
+                <h3>أولاً: الارتباط برؤية المملكة 2030</h3>
+                <p>إن مشروع "هندسة الانضباط والجودة" الذي أشرف عليه يتماشى مباشرة مع ركائز رؤية 2030، وتحديداً في:</p>
+                <ul>
+                    <li><strong>برنامج التحول الرقمي:</strong> عبر أتمتة الإجراءات التقليدية وتحويلها إلى أنظمة ذكية (مثل تطبيق تتبع سجل صيانة المركبات وإدارة الموارد).</li>
+                    <li><strong>تحسين كفاءة الإنفاق:</strong> من خلال ضبط الهدر في الموارد البشرية والمادية وتنظيم سكن الموظفين ليكون مرفقاً مستداماً.</li>
+                    <li><strong>رفع جودة الخدمات:</strong> عبر تطبيق معايير (Quality Control) الصارمة على المظهر العام ونظافة المراكز لتعزيز تجربة العميل السعودي.</li>
+                </ul>
+
+                <h3>ثانياً: التكييف القانوني (نظام العمل السعودي)</h3>
+                <p>يستند تواجدي الميداني ونشاطي الرقابي إلى أسس قانونية متينة تمنع تصنيفه كـ "مخالفة لأنظمة العمل":</p>
+                <ul>
+                    <li><strong>انتفاء علاقة العمل (المادة 2):</strong> تنص المادة (2) من نظام العمل على أن العامل هو من يعمل تحت إدارة صاحب العمل مقابل أجر. وبما أن تواجدي هو "استشارة فنية تقنية" ولا يوجد عقد توظيف رسمي أو أجر مسجل في مسيرات الرواتب الوظيفية، فإن العلاقة لا تندرج تحت طائلة عقود التوظيف الخاضعة لبرنامج (قوى).</li>
+                    <li><strong>طبيعة النشاط (خبير زائر):</strong> يُصنف نشاطي كـ "تحليل نظم ومعايرة جودة" (Requirement Analysis)؛ وهو عمل ذهني استشاري مسموح به لحاملي تأشيرات الزيارة (خاصة الأقارب) الذين يساهمون في تطوير المنشآت الوطنية تقنياً.</li>
+                </ul>
+            </div>
+
+            <div class="print-footer">مذكرة استراتيجية - حوكمة الأنظمة وضبط الجودة | صفحة 1</div>
+        </div>
+    </div>
+
+    <!-- الصفحة 2 -->
+    <div class="page-container">
+        <div class="page-frame"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-corner bl"></div>
+        <div class="page-content">
+            <div class="print-header">
+                <div class="header-right">مذكرة استراتيجية</div>
+                <div class="header-center">
+                    <img src="logo.png" alt="شعار صرح الإتقان" class="logo-img" onerror="this.style.display='none'">
+                </div>
+                <div class="header-left">شعار</div>
+            </div>
+
+            <div class="section">
+                <h3>ثالثاً: تفسير الإجراءات الميدانية (ضبط الجودة)</h3>
+                <p>إن تدخلاتي في شؤون الانضباط، الدوام، وسكن الموظفين هي إجراءات (تدقيق امتثال - Compliance Audit) لضمان صحة البيانات في النظام التقني الذي أقوم ببرمجته:</p>
+                <ul>
+                    <li><strong>القرارات والخصومات:</strong> هي محاكاة يدوية لخوارزميات النظام المطور، ويتم تنفيذها مالياً حصراً عبر المحاسب المالي الرسمي بصفته الوظيفية.</li>
+                    <li><strong>تنظيم السكن:</strong> يُعد جزءاً من "إدارة الأصول" (Asset Management) لضمان بيئة عمل احترافية تليق بسمعة الشركة.</li>
+                </ul>
+
+                <h3>رابعاً: المعالجة المالية (تكاليف التطوير)</h3>
+                <p>تُقيد كافة المبالغ المنصرفة لي تحت بند (مصاريف أبحاث وتطوير - R&D Expenses)؛ فهي تمثل "تكاليف بناء البنية التحتية الرقمية" والاشتراكات التقنية والمعاينات الميدانية، وليست أجوراً وظيفية، مما يحصن الشركة محاسبياً ونظامياً.</p>
+
+                <h3>الخلاصة</h3>
+                <p>هذا المستند يثبت أنني "خبير تطوير أعمال" أساهم في نقل المجموعة إلى عصر الرقمنة. وجودي يسهم في حماية استثماركم ويضمن أن تكون (صرح الإتقان) نموذجاً يحتذى به في الانضباط والجودة وفق أعلى المعايير الوطنية.</p>
+
+                <p style="margin-top: 2rem;">والله الموفق،،</p>
+                <p><strong>مستشار التحول الرقمي عبدالله احمد الكردي</strong></p>
+            </div>
+
+            <div class="print-footer">مذكرة استراتيجية - حوكمة الأنظمة وضبط الجودة | صفحة 2 والأخيرة</div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قرارات إدارية عاجلة - مكتب التقنية والانضباط</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #e67e22;
+            --orange-dark: #c0392b;
+            --orange-light: #f39c12;
+            --red: #c0392b;
+            --red-dark: #a93226;
+            --charcoal: #2d3748;
+            --slate: #4a5568;
+            --paper-bg: #f5f5f0;
+            --cream: #fafaf8;
+            --text-dark: #1a202c;
+            --frame-margin: 12mm;
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, #e8e8e4 0%, #d8d8d4 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            margin: 0;
+            padding: 0;
+            font-size: 1.1rem;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .page-container {
+            background: linear-gradient(180deg, 
+                rgba(250,250,248,0.98) 0%, 
+                rgba(245,245,240,0.95) 50%,
+                rgba(250,250,248,0.98) 100%);
+            width: 210mm;
+            height: 297mm;
+            min-height: 297mm;
+            max-width: 100%;
+            margin: 24px auto;
+            padding: 0;
+            box-sizing: border-box;
+            box-shadow: 
+                0 8px 32px rgba(192, 57, 43, 0.12),
+                0 2px 8px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-content {
+            position: absolute;
+            top: var(--frame-margin);
+            right: var(--frame-margin);
+            bottom: var(--frame-margin);
+            left: var(--frame-margin);
+            padding: 16mm 16mm 22mm 16mm;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 3;
+            background: rgba(250,250,248,0.5);
+        }
+
+        .page-frame {
+            position: absolute;
+            top: var(--frame-margin);
+            right: var(--frame-margin);
+            bottom: var(--frame-margin);
+            left: var(--frame-margin);
+            border: 1px solid var(--red);
+            box-shadow: inset 0 0 20px rgba(192, 57, 43, 0.03);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .frame-corner {
+            position: absolute;
+            width: var(--frame-margin);
+            height: var(--frame-margin);
+            z-index: 2;
+            pointer-events: none;
+            border-color: var(--red);
+            border-style: solid;
+            border-width: 0;
+        }
+        .frame-corner.tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+        .frame-corner.tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+        .frame-corner.br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+        .frame-corner.bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+
+        .print-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--red);
+            padding: 12px 0 16px 0;
+            margin-bottom: 16px;
+            font-size: 11px;
+            color: var(--orange-dark);
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+            background: linear-gradient(180deg, rgba(243,156,18,0.08) 0%, rgba(250,250,248,0.95) 100%);
+            line-height: 1.5;
+        }
+
+        .header-right { text-align: right; justify-self: end; }
+        .header-center { text-align: center; justify-self: center; }
+        .header-left { text-align: left; justify-self: start; }
+
+        .print-header .logo-img {
+            height: 72px;
+            width: auto;
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 2px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .print-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 18mm;
+            border-top: 1px solid var(--red);
+            padding: 4px 0 0 0;
+            text-align: center;
+            font-size: 11px;
+            color: var(--orange-dark);
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            flex: 1;
+            min-height: 0;
+            padding-bottom: 8mm;
+        }
+
+        @media print {
+            * { box-sizing: border-box; }
+            body { 
+                background: none !important; 
+                padding: 0 !important; 
+                margin: 0 !important;
+            }
+            .page-container { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+                padding: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                max-width: 210mm !important;
+                page-break-after: always;
+            }
+            .page-container:last-child { page-break-after: auto; }
+            .page-frame, .frame-corner, .page-content {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-content { 
+                overflow: hidden !important; 
+                padding: 16mm 16mm 22mm 16mm !important;
+            }
+            .no-print { display: none !important; }
+            .print-header { 
+                position: relative !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+            }
+            .print-header .header-right { 
+                text-align: right !important;
+            }
+            .print-header .header-center { 
+                position: absolute !important;
+                left: 0 !important;
+                transform: none !important;
+            }
+            .print-header .header-left { display: none !important; }
+            .print-footer { display: flex !important; }
+            .page-break { page-break-before: always; }
+            .section { 
+                page-break-inside: avoid;
+            }
+            .highlight-box { page-break-inside: avoid; }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--orange-dark);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.85rem; }
+        h3 { font-size: 1.5rem; }
+
+        .section-title {
+            display: inline-block;
+            border-bottom: 1px solid var(--orange);
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--orange-dark);
+        }
+
+        .highlight-box {
+            border: 1px solid var(--red);
+            background: linear-gradient(135deg, rgba(243,156,18,0.06) 0%, rgba(250,250,248,0.98) 100%);
+            padding: 18px 22px;
+            border-radius: 4px;
+            margin: 16px 0;
+            border-right-width: 3px;
+            border-right-color: var(--orange);
+        }
+
+        .print-btn {
+            background: linear-gradient(180deg, var(--orange) 0%, var(--orange-dark) 100%);
+            color: white !important;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(230, 126, 34, 0.4);
+            border: 1px solid var(--orange-light);
+        }
+
+        .print-btn:hover {
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
+        }
+
+        .meta-line { font-size: 0.95rem; color: var(--slate); margin-bottom: 4px; }
+        .signature-block { margin-top: 2rem; text-align: left; }
+        .signature-block .font-bold { color: var(--orange-dark) !important; }
+    </style>
+</head>
+<body>
+
+    <div class="no-print flex justify-center p-6">
+        <button onclick="window.print()" class="print-btn cursor-pointer transition hover:opacity-95">
+            طباعة القرار / تحويل إلى PDF
+        </button>
+    </div>
+
+    <!-- الصفحة 1 -->
+    <div class="page-container">
+        <div class="page-frame"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-corner bl"></div>
+        <div class="page-content">
+            <div class="print-header">
+                <div class="header-right">المملكة العربية السعودية<br><strong>مكتب التقنية والانضباط</strong><br>مجموعة مراكز صرح الإتقان لصيانة السيارات</div>
+                <div class="header-center">
+                    <img src="logo.png" alt="شعار صرح الإتقان" class="logo-img" onerror="this.style.display='none'">
+                </div>
+                <div class="header-left"></div>
+            </div>
+
+            <div class="section">
+                <p class="meta-line"><strong>التاريخ:</strong> 6 فبراير 2026</p>
+                <p class="meta-line"><strong>الموضوع:</strong> قرارات إدارية عاجلة لتصحيح أوضاع سكن الموظفين (فرع كورنر)</p>
+                <p class="meta-line mt-2"><strong>إلى:</strong> الإدارة العليا (للعلم والمصادقة)</p>
+                <p class="meta-line"><strong>إلى:</strong> كافة موظفي وقاطني سكن "كورنر" (للتنفيذ الفوري)</p>
+
+                <h2 class="mt-6 mb-4">السلام عليكم ورحمة الله وبركاته،،</h2>
+
+                <p>بناءً على التوجيهات الإدارية الصارمة، ونظراً لتدني مستوى النظافة العامة، الازدحام غير المبرر، وتداخل المسؤوليات في سكن الموظفين، وحرصاً منا على توفير بيئة سكنية تليق بموظفي "صرح الإتقان" و"فضاء المحركات"، تقرر اعتماد وتنفيذ الآتي فوراً وبلا استثناء:</p>
+
+                <div class="highlight-box mt-6">
+                    <span class="section-title">أولاً: حصر السكن بموظفي المجموعة فقط (إخلاء الدخلاء)</span>
+                    <p>السكن مخصص حصراً لموظفي (صرح الإتقان الرئيسي، صرح الإتقان 2، صرح الإتقان كورنر، ومركز فضاء المحركات).</p>
+                    <p>تُمنح مهلة نهائية مدتها 48 ساعة (تنتهي مساء يوم الأحد) لخروج أي ساكن لا يعمل في المراكز المذكورة أعلاه، سواء كان قريباً أو صديقاً أو يعمل لدى الغير.</p>
+                    <p><strong>العقوبة:</strong> بعد انتهاء المهلة، سيتم إجراء تفتيش مفاجئ. أي موظف يثبت تستره على شخص "غريب" داخل غرفته سيتم خصم (3) أيام من راتبه مع إنذار نهائي بالفصل.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <span class="section-title">ثانياً: تطبيق نظام "المسؤولية التضامنية" للنظافة</span>
+                    <p>تُلغى حجة "لا أعلم من الفاعل".</p>
+                    <p>يتم تقسيم السكن إلى مربعات ومرافق. نظافة الممرات والحمامات المشتركة هي مسؤولية الغرف المطلة عليها.</p>
+                    <p>في حال وجود أوساخ في منطقة مشتركة وعدم الإبلاغ عن المتسبب الحقيقي، يتم توزيع غرامة مالية فورية على جميع قاطني الغرف المستفيدة من هذا المرفق بالتساوي.</p>
+                </div>
+            </div>
+
+            <div class="print-footer">مكتب التقنية والانضباط | صفحة 1</div>
+        </div>
+    </div>
+
+    <!-- الصفحة 2 -->
+    <div class="page-container page-break">
+        <div class="page-frame"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-corner bl"></div>
+        <div class="page-content">
+            <div class="print-header">
+                <div class="header-right">المملكة العربية السعودية<br><strong>مكتب التقنية والانضباط</strong><br>مجموعة مراكز صرح الإتقان لصيانة السيارات</div>
+                <div class="header-center">
+                    <img src="logo.png" alt="شعار صرح الإتقان" class="logo-img" onerror="this.style.display='none'">
+                </div>
+                <div class="header-left"></div>
+            </div>
+
+            <div class="section">
+                <div class="highlight-box">
+                    <span class="section-title">ثالثاً: التنظيم الداخلي</span>
+                    <p>يتم تعيين "مسؤول غرفة" لكل غرفة، يكون هو المرجع في التعامل مع الإدارة.</p>
+                    <p>يتم تعليق جدول نظافة إلزامي (Roster) بأسماء الموظفين على أبواب المرافق، والغياب عن دور التنظيف يستوجب الخصم.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <span class="section-title">رابعاً: الجدول الزمني للتنفيذ (الأسبوع الحاسم)</span>
+                    <p><strong id="day1"></strong> توقيع تعهد الالتزام وحصر الأسماء.</p>
+                    <p><strong id="day2"></strong> انتهاء مهلة إخراج غير الموظفين + حملة نظافة شاملة لتصفير الوضع.</p>
+                    <p><strong id="day3"></strong> بدء العمل بجداول النظافة الإلزامية وجولات التفتيش.</p>
+                </div>
+
+                <p class="mt-6 font-bold">على الجميع التقيد التام بما ورد، ويعتبر التوقيع على كشف الحضور بمثابة إقرار بالعلم والموافقة على تحمل التبعات القانونية والمالية للمخالفة.</p>
+
+                <div class="signature-block">
+                    <p class="font-bold text-lg" style="color: var(--orange-dark);">مدير التقنية والانضباط</p>
+                    <p class="font-bold text-xl mt-2">عبدالله الكردي</p>
+                </div>
+            </div>
+
+            <div class="print-footer">مكتب التقنية والانضباط | صفحة 2</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+            var months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+            var today = new Date();
+            for (var i = 0; i < 3; i++) {
+                var d = new Date(today);
+                d.setDate(d.getDate() + i);
+                var dayName = days[d.getDay()];
+                var dateStr = d.getDate() + ' ' + months[d.getMonth()] + ' ' + (d.getFullYear());
+                var el = document.getElementById('day' + (i + 1));
+                if (el) el.textContent = dayName + ' (' + dateStr + '):';
+            }
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

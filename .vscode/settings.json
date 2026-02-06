@@ -1,0 +1,5 @@
+{
+    "deepscan.enable": true,
+    "liveServer.settings.port": 5501,
+    "livePreview.defaultPreviewPath": "/index copy.html"
+}

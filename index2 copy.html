@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج إقرار وتعهد سكني - مكتب التقنية والانضباط</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #e67e22;
+            --orange-dark: #c0392b;
+            --orange-light: #f39c12;
+            --red: #c0392b;
+            --red-dark: #a93226;
+            --charcoal: #2d3748;
+            --slate: #4a5568;
+            --paper-bg: #f5f5f0;
+            --cream: #fafaf8;
+            --text-dark: #1a202c;
+            --frame-margin: 12mm;
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, #e8e8e4 0%, #d8d8d4 100%);
+            color: var(--text-dark);
+            line-height: 1.9;
+            margin: 0;
+            padding: 0;
+            font-size: 1.1rem;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .page-container {
+            background: linear-gradient(180deg, 
+                rgba(250,250,248,0.98) 0%, 
+                rgba(245,245,240,0.95) 50%,
+                rgba(250,250,248,0.98) 100%);
+            width: 210mm;
+            height: 297mm;
+            min-height: 297mm;
+            max-width: 100%;
+            margin: 24px auto;
+            padding: 0;
+            box-sizing: border-box;
+            box-shadow: 
+                0 8px 32px rgba(192, 57, 43, 0.12),
+                0 2px 8px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-content {
+            position: absolute;
+            top: var(--frame-margin);
+            right: var(--frame-margin);
+            bottom: var(--frame-margin);
+            left: var(--frame-margin);
+            padding: 16mm 16mm 22mm 16mm;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            z-index: 3;
+            background: rgba(250,250,248,0.5);
+        }
+
+        .page-frame {
+            position: absolute;
+            top: var(--frame-margin);
+            right: var(--frame-margin);
+            bottom: var(--frame-margin);
+            left: var(--frame-margin);
+            border: 1px solid var(--red);
+            box-shadow: inset 0 0 20px rgba(192, 57, 43, 0.03);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .frame-corner {
+            position: absolute;
+            width: var(--frame-margin);
+            height: var(--frame-margin);
+            z-index: 2;
+            pointer-events: none;
+            border-color: var(--red);
+            border-style: solid;
+            border-width: 0;
+        }
+        .frame-corner.tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+        .frame-corner.tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+        .frame-corner.br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+        .frame-corner.bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+
+        .print-header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--red);
+            padding: 12px 0 16px 0;
+            margin-bottom: 16px;
+            font-size: 11px;
+            color: var(--orange-dark);
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+            background: linear-gradient(180deg, rgba(243,156,18,0.08) 0%, rgba(250,250,248,0.95) 100%);
+            line-height: 1.5;
+        }
+
+        .header-right { text-align: right; justify-self: end; }
+        .header-center { text-align: center; justify-self: center; }
+        .header-left { text-align: left; justify-self: start; }
+
+        .print-header .logo-img {
+            height: 72px;
+            width: auto;
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 2px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .print-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 18mm;
+            border-top: 1px solid var(--red);
+            padding: 4px 0 0 0;
+            text-align: center;
+            font-size: 11px;
+            color: var(--orange-dark);
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 700;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            flex: 1;
+            min-height: 0;
+            padding-bottom: 8mm;
+            overflow-y: auto;
+        }
+
+        @media print {
+            * { box-sizing: border-box; }
+            body { 
+                background: none !important; 
+                padding: 0 !important; 
+                margin: 0 !important;
+            }
+            .page-container { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+                padding: 0 !important;
+                width: 210mm !important;
+                min-height: 297mm !important;
+                max-width: 210mm !important;
+                page-break-after: always;
+                overflow: visible !important;
+            }
+            .page-container:last-child { page-break-after: auto; }
+            .page-frame, .frame-corner, .page-content {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page-content { 
+                overflow: visible !important; 
+                padding: 16mm 16mm 22mm 16mm !important;
+            }
+            .no-print { display: none !important; }
+            .print-header { 
+                position: relative !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+            }
+            .print-header .header-right { 
+                text-align: right !important;
+            }
+            .print-header .header-center { 
+                position: absolute !important;
+                left: 0 !important;
+                transform: none !important;
+            }
+            .print-header .header-left { display: none !important; }
+            .print-footer { display: flex !important; }
+            .page-break { page-break-before: always; }
+            .section { 
+                page-break-inside: auto;
+                overflow: visible !important;
+            }
+            .highlight-box { page-break-inside: avoid; }
+            .sig-table td[contenteditable]:focus { outline: none !important; background: transparent !important; }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--orange-dark);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.85rem; }
+        h3 { font-size: 1.5rem; }
+
+        .section-title {
+            display: inline-block;
+            border-bottom: 1px solid var(--orange);
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--orange-dark);
+        }
+
+        .highlight-box {
+            border: 1px solid var(--red);
+            background: linear-gradient(135deg, rgba(243,156,18,0.06) 0%, rgba(250,250,248,0.98) 100%);
+            padding: 18px 22px;
+            border-radius: 4px;
+            margin: 16px 0;
+            border-right-width: 3px;
+            border-right-color: var(--orange);
+        }
+
+        .print-btn {
+            background: linear-gradient(180deg, var(--orange) 0%, var(--orange-dark) 100%);
+            color: white !important;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(230, 126, 34, 0.4);
+            border: 1px solid var(--orange-light);
+        }
+
+        .print-btn:hover {
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
+        }
+
+        .meta-line { font-size: 0.95rem; color: var(--slate); margin-bottom: 4px; }
+        .signature-block { margin-top: 2rem; text-align: left; }
+        .signature-block .font-bold { color: var(--orange-dark) !important; }
+        .sig-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 12px; }
+        .sig-table th, .sig-table td { border: 1px solid var(--red); padding: 6px 8px; text-align: center; }
+        .sig-table th { background: rgba(243,156,18,0.12); color: var(--orange-dark); font-weight: 700; }
+        .sig-table td { min-height: 28px; }
+        .sig-table .col-num { width: 32px; }
+        .sig-table .col-name { min-width: 120px; }
+        .sig-table .col-nat { width: 70px; }
+        .sig-table .col-center { width: 90px; }
+        .sig-table .col-room { width: 60px; }
+        .sig-table .col-sig { min-width: 100px; }
+        .sig-table td[contenteditable] { min-height: 28px; cursor: text; }
+        .sig-table td[contenteditable]:focus { outline: 1px solid var(--orange); background: rgba(243,156,18,0.05); }
+        .sig-table thead { display: table-header-group; }
+        .sig-table tbody tr { page-break-inside: auto; }
+    </style>
+</head>
+<body>
+
+    <div class="no-print flex justify-center p-6">
+        <button onclick="window.print()" class="print-btn cursor-pointer transition hover:opacity-95">
+            طباعة النموذج / تحويل إلى PDF
+        </button>
+    </div>
+
+    <!-- الصفحة 1 -->
+    <div class="page-container">
+        <div class="page-frame"></div>
+        <div class="frame-corner tr"></div>
+        <div class="frame-corner tl"></div>
+        <div class="frame-corner br"></div>
+        <div class="frame-corner bl"></div>
+        <div class="page-content">
+            <div class="print-header">
+                <div class="header-right">المملكة العربية السعودية<br><strong>مكتب التقنية والانضباط</strong><br>مجموعة مراكز صرح الإتقان لصيانة السيارات</div>
+                <div class="header-center">
+                    <img src="logo.png" alt="شعار صرح الإتقان" class="logo-img" onerror="this.style.display='none'">
+                </div>
+                <div class="header-left"></div>
+            </div>
+
+            <div class="section">
+                <h2 class="mt-2 mb-4">نموذج إقرار وتعهد سكني</h2>
+
+                <p>أقر أنا الموقع أدناه، بصفتي أحد قاطني سكن "كورنر"، بأنني حضرت الاجتماع العام بتاريخ 7 فبراير 2026، واطلعت على القرارات الإدارية الجديدة. وأتعهد بالآتي:</p>
+
+                <div class="highlight-box mt-4">
+                    <ul style="list-style: none; padding-right: 0;">
+                        <li>• عدم استضافة أي شخص من خارج موظفي الشركة في السكن نهائياً.</li>
+                        <li>• الالتزام التام بجدول النظافة والحفاظ على المرافق العامة.</li>
+                        <li>• موافقتي على خصم قيمة الغرامات من راتبي في حال مخالفتي للأنظمة أو تسببي في تلفيات.</li>
+                    </ul>
+                </div>
+
+                <p class="section-title mt-6">كشف التوقيعات:</p>
+                <table class="sig-table">
+                    <thead>
+                        <tr>
+                            <th class="col-num">م</th>
+                            <th class="col-name">الاسم الثلاثي</th>
+                            <th class="col-nat">الجنسية</th>
+                            <th class="col-center">مركز العمل<br><small>(الرئيسي/1/2/فضاء المحركات)</small></th>
+                            <th class="col-room">رقم الغرفة</th>
+                            <th class="col-sig">التوقيع</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>2</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>3</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>4</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>5</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>6</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>7</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>8</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>9</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>10</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>11</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>12</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>13</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>14</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>15</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>16</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>17</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>18</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>19</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>20</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>21</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>22</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>23</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>24</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>25</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>26</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>27</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>28</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>29</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>30</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>31</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>32</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>33</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>34</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>35</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>36</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>37</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>38</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>39</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                        <tr><td>40</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="print-footer">مكتب التقنية والانضباط | صفحة 1</div>
+        </div>
+    </div>
+
+</body>
+</html>
